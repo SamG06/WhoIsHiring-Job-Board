@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./css/global.css";
+import { JobsProvider } from "./context/jobs-context";
+import JobsList from "./components/JobsList";
 
-const element = <h1> WhoIsHiring Job Board </h1>;
+function App() {
+  return (
+    <JobsProvider>
+      <JobsList />
+    </JobsProvider>
+  );
+}
 
-ReactDOM.render(element, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
