@@ -1,0 +1,7 @@
+.jobs-list {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 100px;
+}
