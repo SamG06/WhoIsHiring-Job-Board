@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ViewButton from "./FullView/ViewButton";
 
 function JobCard({ job }) {
   const { title, content, id } = job;
+
   const shortened = {
     title: title.trim().slice(0, 70),
     content: content.slice(0, 130),
@@ -11,7 +13,7 @@ function JobCard({ job }) {
     <article className="job-card">
       <h2>{shortened.title}...</h2>
       <p>{shortened.content}...</p>
-      <p>{id}</p>
+      <ViewButton jobId={id} />
     </article>
   );
 }

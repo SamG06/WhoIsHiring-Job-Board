@@ -1,0 +1,13 @@
+.view-link {
+  background: #4fa2e100;
+  border: none;
+  color: #4fa2e1;
+  padding: 10px;
+  border-radius: 100px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  border: 2px solid #4fa2e1;
+  text-align: center;
+  text-decoration: none;
+}

@@ -2,6 +2,8 @@
 @import url("job-card.css");
 @import url("jobs-list.css");
 @import url("mobile-nav.css");
+@import url("view-link.css");
+@import url("full-view.css");
 /* Custom CSS Reset */
 * {
   box-sizing: border-box;

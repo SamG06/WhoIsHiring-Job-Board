@@ -1,0 +1,28 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useJobs } from "../../context/jobs-context";
+
+function FullView() {
+  const [currentJob, setCurrentJob] = useState([]);
+
+  const { jobs } = useJobs();
+
+  const { jobId } = useParams();
+
+  console.log(jobId);
+  useEffect(() => {
+    const job = jobs.find(({ id }) => id === jobId);
+    if (job) {
+      setCurrentJob(job);
+    }
+  }, [jobId]);
+
+  return (
+    <div className={`full-view ${jobId ? "open-view" : ""}`}>
+      <h2>{currentJob.title}</h2>
+      <p>{currentJob.content}</p>
+    </div>
+  );
+}
+
+export default FullView;

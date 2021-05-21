@@ -22,7 +22,7 @@ function JobsProvider({ children }) {
       });
   }, []);
 
-  const value = { jobs, setJobs };
+  const value = { jobs };
 
   return <JobsContext.Provider value={value}>{children} </JobsContext.Provider>;
 }
