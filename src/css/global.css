@@ -32,6 +32,10 @@ html {
   overflow-y: scroll;
 }
 
+a {
+  color: rgb(80, 151, 212);
+}
+
 .loading-message {
   color: rgb(214, 214, 214);
   display: flex;
@@ -57,4 +61,16 @@ html {
   shape-rendering: auto;
   width: 100px;
   height: 100px;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: auto;
+}
+
+@media only screen and (min-width: 600px) {
+  .main-container {
+    margin-top: 100px;
+  }
 }

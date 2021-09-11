@@ -2,7 +2,8 @@
   display: flex;
   flex-flow: column;
   background: #262626;
-  width: 95%;
+  border: solid 2px #414141;
+  width: 100%;
   word-wrap: break-word;
   padding: 10px;
   margin-top: 20px;
@@ -11,11 +12,19 @@
 
 .job-card h2 {
   font-size: 18px;
-  color: #c5c5c5;
+  color: #e0e0e0;
 }
 
-.job-card p {
+.job-card .main-content {
   font-size: 16px;
   color: #979797;
   margin-top: 10px;
+  overflow: hidden;
+  max-height: 100px;
+}
+
+@media only screen and (min-width: 600px) {
+  .job-card {
+    margin-top: 0px;
+  }
 }

@@ -4,22 +4,21 @@ import ReactDOM from "react-dom";
 import "./css/global.css";
 
 import { JobsProvider } from "./context/jobs-context";
-import { ViewProvider } from "./context/view-context";
+import { SavedProvider } from "./context/saved-context";
 import JobsList from "./components/JobsList";
-import MobileNav from "./components/MobileNav";
+// import MobileNav from "./components/MobileNav";
 import FullView from "./components/FullView/FullView";
 
 function App() {
   return (
     <Router>
       <JobsProvider>
-        <ViewProvider>
+        <SavedProvider>
           <Switch>
             <Route exact path={["/", "/view/:jobId"]} component={FullView} />
           </Switch>
           <JobsList />
-          <MobileNav />
-        </ViewProvider>
+        </SavedProvider>
       </JobsProvider>
     </Router>
   );
