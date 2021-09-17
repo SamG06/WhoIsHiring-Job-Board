@@ -4,55 +4,52 @@ import React, { useState, useEffect } from "react";
 import { useJobs } from "../context/jobs-context";
 import JobCard from "./JobCard/JobCard";
 import LoadingMessage from "./LoadingMessage";
-import KeyWords from "./KeyWords/KeyWords";
 import { useSaved } from "../context/saved-context";
 
 function JobsList() {
-  const { jobs } = useJobs();
+  const { jobs, keywords } = useJobs();
   const [amount, setAmount] = useState(30);
-  const [scrollLimitReached, setScrollLimitReached] = useState(false);
-  const [keywords, setKeywords] = useState([]);
-  const [showSaved, setShowSaved] = useState(false);
-  const { saved } = useSaved();
+  const { saved, showSaved } = useSaved();
 
   useEffect(() => {
     setAmount(30);
   }, [keywords, showSaved]);
 
-  useEffect(() => {
-    console.log(amount);
-  }, [amount]);
+  // LOAD JOBS ON SCROLL
+  const scrollLoadJobs = () => {
+    const distanceScrolled = window.innerHeight + window.scrollY;
+    const fullHeight = document.body.offsetHeight - 800; // 800 make room for early loading
+    const scrolledToBottom = distanceScrolled >= fullHeight;
 
-  useEffect(() => {
-    if (jobs.length) {
-      const onScroll = () => {
-        if (
-          window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 800
-        ) {
-          if (amount + 30 < jobs.length) {
-            setAmount((prev) => prev + 30);
-          } else {
-            setAmount(jobs.length);
-            console.log("limit");
-          }
-        }
-      };
-      window.addEventListener("scroll", onScroll);
+    if (scrolledToBottom) {
+      const hitJobLimit = amount + 30 < jobs.length;
+
+      if (hitJobLimit) {
+        setAmount((prev) => prev + 30);
+        return;
+      }
+
+      setAmount(jobs.length);
     }
-  }, [jobs]);
+  };
 
-  const keywordMatching = ({ title, content }) => {
-    if (!keywords.length) return true;
+  // END SHOW JOBS VARIABLE
+  const [jobsToShow, setJobsToShow] = useState([]);
+
+  const keywordMatching = (job, index) => {
+    const { title, content } = job;
     const lowerTitle = title.toLocaleLowerCase();
     const lowerContent = content.toLocaleLowerCase();
+
     const matches = [];
-    const requiredWords = keywords.filter(({ required }) => required === true);
-    const lowerRequiredWords = requiredWords.map(({ word }) =>
-      word.toLocaleLowerCase()
-    );
+
+    // get all required words then make them lowercase
+    let requiredWords = keywords.filter(({ required }) => required === true);
+    requiredWords = requiredWords.map(({ word }) => word.toLocaleLowerCase());
+
     keywords.forEach(({ word }) => {
       const lowerWord = word.toLocaleLowerCase();
+
       if (
         lowerTitle.includes(lowerWord) ||
         (lowerContent.includes(lowerWord) && word !== "")
@@ -60,64 +57,49 @@ function JobsList() {
         const hasRequired = (w) => {
           return lowerTitle.includes(w) || lowerContent.includes(w);
         };
-        if (
-          lowerRequiredWords.every(hasRequired) ||
-          requiredWords.length === 0
-        ) {
+
+        const matchFound =
+          requiredWords.every(hasRequired) || !requiredWords.length;
+
+        if (matchFound) {
           matches.push(word);
         }
       }
     });
+
     if (matches.length > 0) {
+      setJobsToShow((toShow) => [...toShow, { ...job, matches }]);
+
       return true;
     }
+
     return false;
   };
+  useEffect(() => {
+    if (!jobs.length) return;
+    console.log(jobs);
 
-  const jobToShow = jobs.filter((job) => keywordMatching(job));
+    if (!keywords.length) {
+      setJobsToShow(jobs);
+    } else {
+      setJobsToShow([]);
+      jobs.forEach((job, index) => {
+        keywordMatching(job);
+      });
+    }
+    window.addEventListener("scroll", scrollLoadJobs);
+  }, [jobs, keywords]);
+
+  // SEARCH KEYWORD MATCHING
 
   return (
-    <div className="main-container">
-      <div className="intro">
-        <h1>Who Is Hiring?</h1>
-
-        <p>
-          {jobs.length} Job Results (from{" "}
-          <a
-            href="https://news.ycombinator.com/submitted?id=whoishiring"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            hackernews
-          </a>
-          )
-        </p>
-      </div>
-      <KeyWords keyWords={keywords} setKeywords={setKeywords} />
-
-      <button
-        type="button"
-        onClick={() => {
-          setShowSaved(!showSaved);
-        }}
-      >
-        Show my saved jobs
-      </button>
-
-      {keywords.length > 0 && (
-        <div className="results-amount">
-          {jobToShow.length} Results From Keywords
-        </div>
-      )}
-
-      <div className="jobs-list">
-        {!jobs.length && <LoadingMessage />}
-        {showSaved && saved.map((job) => <JobCard key={job.id} job={job} />)}
-        {!showSaved &&
-          jobToShow
-            .slice(0, amount)
-            .map((job) => <JobCard key={job.id} job={job} />)}
-      </div>
+    <div className="jobs-list">
+      {!jobs.length && <LoadingMessage />}
+      {showSaved && saved.map((job) => <JobCard key={job.id} job={job} />)}
+      {!showSaved &&
+        jobsToShow
+          .slice(0, amount)
+          .map((job) => <JobCard key={job.id} job={job} />)}
     </div>
   );
 }

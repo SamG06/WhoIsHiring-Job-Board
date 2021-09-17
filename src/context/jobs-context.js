@@ -5,6 +5,7 @@ const JobsContext = createContext();
 
 function JobsProvider({ children }) {
   const [jobs, setJobs] = useState([]);
+  const [keywords, setKeywords] = useState([]);
 
   useEffect(() => {
     fetch(process.env.REACT_APP_API_URL)
@@ -22,7 +23,7 @@ function JobsProvider({ children }) {
       });
   }, []);
 
-  const value = { jobs };
+  const value = { jobs, keywords, setKeywords };
 
   return <JobsContext.Provider value={value}>{children} </JobsContext.Provider>;
 }

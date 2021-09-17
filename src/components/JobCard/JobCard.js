@@ -2,18 +2,35 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ViewButton from "../FullView/ViewButton";
-// import SaveButton from "./SaveButton";
+import SaveButton from "./SaveButton";
 
 function JobCard({ job }) {
   const { title, content, id } = job;
 
+  const keywordMatches = () => {
+    if (job.matches) {
+      return job.matches.map((match) => (
+        <div className="keyword-match">{match}</div>
+      ));
+    }
+    return "";
+  };
+
   return (
     <article className="job-card">
-      <h2>{title}</h2>
-      <p
-        className="main-content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <div className="title-side">
+        <h2>{title}</h2>
+        <SaveButton job={job} />
+      </div>
+      <div className="content-side">
+        <p
+          className="main-content"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+        <div className="keyword-matches">{keywordMatches()}</div>
+        <ViewButton jobId={id} />
+      </div>
+
       {/* <div className="buttons">
         <ViewButton jobId={id} />
         <SaveButton job={job} />
@@ -25,7 +42,6 @@ function JobCard({ job }) {
           View Original
         </a>
       </div> */}
-      <ViewButton jobId={id} />
     </article>
   );
 }
@@ -35,6 +51,7 @@ JobCard.propTypes = {
     title: PropTypes.node,
     content: PropTypes.node,
     id: PropTypes.node,
+    matches: PropTypes.node,
   }).isRequired,
 };
 

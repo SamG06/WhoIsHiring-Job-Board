@@ -1,13 +1,15 @@
 import React, { useContext, createContext } from "react";
 import PropTypes from "prop-types";
 import createPersistedState from "use-persisted-state";
+import { useState } from "react/cjs/react.development";
 
 const SavedContext = createContext();
 
 function SavedProvider({ children }) {
   const savedPersistedState = createPersistedState("saved");
   const [saved, setSaved] = savedPersistedState([]);
-  const value = { saved, setSaved };
+  const [showSaved, setShowSaved] = useState(false);
+  const value = { saved, setSaved, showSaved, setShowSaved };
 
   return (
     <SavedContext.Provider value={value}>{children} </SavedContext.Provider>

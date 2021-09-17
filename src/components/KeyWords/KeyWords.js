@@ -40,6 +40,7 @@ function KeyWord({ setKeywords, keyWords }) {
               onClick={() => {
                 removeKeyword(word);
               }}
+              key={word}
             >
               {word}
             </div>
@@ -50,6 +51,7 @@ function KeyWord({ setKeywords, keyWords }) {
             addingKeyword();
           }}
           type="button"
+          style={!isAddingKeyword ? { display: "block" } : { display: "none" }}
           className="add-keyword-btn"
         >
           Add Keyword +
@@ -58,11 +60,15 @@ function KeyWord({ setKeywords, keyWords }) {
           ref={keywordInput}
           type="text"
           style={isAddingKeyword ? { display: "block" } : { display: "none" }}
+          value={currentWord}
           onChange={(e) =>
             setCurrentWord(e.target.value.replace(/\s+/g, " ").trim())
           }
           onKeyPress={(e) => {
-            if (e.key === "Enter") addKeyword();
+            if (e.key === "Enter") {
+              addKeyword();
+              setCurrentWord("");
+            }
           }}
           name="add keyword"
           id="addKeyword"
