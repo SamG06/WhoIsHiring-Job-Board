@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useState } from "react/cjs/react.development";
 import { formatDistance } from "date-fns/esm";
 import ViewButton from "../FullView/ViewButton";
 import SaveButton from "./SaveButton";
