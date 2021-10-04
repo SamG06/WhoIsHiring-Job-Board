@@ -1,7 +1,6 @@
-import React, { useContext, createContext } from "react";
+import React, { useContext, createContext, useState } from "react";
 import PropTypes from "prop-types";
 import createPersistedState from "use-persisted-state";
-import { useState } from "react/cjs/react.development";
 
 const SavedContext = createContext();
 

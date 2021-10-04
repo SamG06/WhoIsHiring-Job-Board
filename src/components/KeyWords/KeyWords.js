@@ -59,6 +59,7 @@ function KeyWord({ setKeywords, keyWords }) {
         <input
           ref={keywordInput}
           type="text"
+          placeholder="Add Keyword"
           style={isAddingKeyword ? { display: "block" } : { display: "none" }}
           value={currentWord}
           onChange={(e) =>

@@ -13,6 +13,9 @@ function JobsProvider({ children }) {
         return response.json();
       })
       .then((data) => {
+        data.sort((a, b) => {
+          return new Date(b.date_time) - new Date(a.date_time);
+        });
         setJobs(data);
       })
       .catch((err) => {
