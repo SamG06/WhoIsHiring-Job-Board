@@ -62,9 +62,7 @@ function KeyWord({ setKeywords, keyWords }) {
           placeholder="Add Keyword"
           style={isAddingKeyword ? { display: "block" } : { display: "none" }}
           value={currentWord}
-          onChange={(e) =>
-            setCurrentWord(e.target.value.replace(/\s+/g, " ").trim())
-          }
+          onChange={(e) => setCurrentWord(e.target.value.replace(/\s+/g, " "))}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               addKeyword();
