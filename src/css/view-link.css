@@ -1,0 +1,19 @@
+.buttons {
+  display: flex;
+  margin-top: 15px;
+  column-gap: 10px;
+}
+
+.buttons button,
+a {
+  border: none;
+  font-size: 0.9em;
+  border-radius: 100px;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.view-button {
+}

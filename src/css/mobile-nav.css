@@ -1,0 +1,27 @@
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: #193a53;
+  height: 56px;
+  padding: 10px;
+}
+
+.mobile-nav .icon {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: #1b3e57;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.mobile-nav .icon p {
+  color: rgb(180, 180, 180);
+  font-size: 12px;
+}

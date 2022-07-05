@@ -1,0 +1,30 @@
+.full-view {
+  position: fixed;
+  z-index: 1000;
+  height: 90%;
+  width: 95%;
+  border-radius: 10px;
+  background: rgb(31, 31, 31);
+  box-shadow: 2px 2px 2px rgba(32, 32, 32, 0.705);
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotateX(84deg);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.open-view {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotateX(0deg);
+  pointer-events: visible;
+  transition: opacity 0.1s, transform 0.3s;
+}
+
+.full-view h2 {
+  color: rgb(226, 226, 226);
+}
+
+.full-view p {
+  color: whitesmoke;
+}

@@ -1,0 +1,147 @@
+.job-card {
+  display: flex;
+  flex-flow: column;
+  background: #262626;
+  width: 100%;
+  word-wrap: break-word;
+  margin: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: #1e1e1e;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+}
+
+.job-card h2 {
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+.title-side {
+  background: #105c87;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  flex-flow: column;
+}
+
+.title-side .top {
+  display: flex;
+}
+
+.date {
+  color: rgb(206, 206, 206);
+}
+.title-side a {
+  margin-left: auto;
+  display: block;
+  width: 20px;
+}
+.content-side {
+  padding: 10px;
+}
+.job-card .main-content {
+  font-size: 16px;
+  color: #979797;
+  margin-top: 10px;
+  overflow: hidden;
+  max-height: 100px;
+  transition: height 0.2s;
+}
+
+.job-card .main-content-full {
+  max-height: 5000px;
+}
+
+.job-card .less {
+  background: gray;
+}
+.save-button-card {
+  background-color: rgb(20, 134, 138);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 120px;
+  position: relative;
+  text-align: center;
+  height: 40px;
+  cursor: pointer;
+}
+.save-button-card svg {
+  position: absolute;
+  left: 5px;
+}
+
+.remove-job {
+  background: rgb(48 67 68);
+  font-size: 0.9em;
+}
+
+.save-button-card p {
+  margin-left: 34px;
+}
+
+.remove-job p {
+  margin-left: 28px;
+}
+
+.keyword-matches {
+  display: flex;
+  margin-top: 10px;
+  column-gap: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+.keyword-match {
+  background: #242424;
+  color: white;
+  padding: 5px;
+  height: 30px;
+  min-width: px;
+  text-align: center;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.view-button {
+  border: none;
+  padding: 5px;
+  background: rgb(66, 109, 23);
+  border-radius: 5px;
+  color: white;
+  font-size: 1.1em;
+  min-width: 150px;
+  float: right;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+@media only screen and (min-width: 700px) {
+  .job-card {
+    flex-flow: row;
+    min-height: 230px;
+  }
+  .title-side {
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    width: 400px;
+    flex-grow: 1;
+  }
+
+  .content-side {
+    width: 100%;
+  }
+
+  .view-button {
+    width: 150px;
+  }
+}
