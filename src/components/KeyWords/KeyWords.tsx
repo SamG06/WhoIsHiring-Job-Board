@@ -78,10 +78,4 @@ function KeyWord({ setKeywords, keyWords }) {
   );
 }
 
-KeyWord.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  keyWords: PropTypes.any.isRequired,
-  setKeywords: PropTypes.node.isRequired,
-};
-
 export default KeyWord;

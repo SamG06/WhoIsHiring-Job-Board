@@ -1,23 +1,21 @@
 .job-card {
-  display: flex;
+  display: grid;
   flex-flow: column;
-  background: #262626;
   width: 100%;
   word-wrap: break-word;
   margin: 10px;
   margin-top: 20px;
   border-radius: 5px;
-  background: #1e1e1e;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+  border: 1px solid #EDEDED;
+  background-color: white;
 }
 
 .job-card h2 {
   font-size: 18px;
-  color: #e0e0e0;
+  color: #1b1b1b;
 }
 
 .title-side {
-  background: #105c87;
   padding: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -30,7 +28,7 @@
 }
 
 .date {
-  color: rgb(206, 206, 206);
+  color: rgb(129, 129, 129);
 }
 .title-side a {
   margin-left: auto;
@@ -42,7 +40,7 @@
 }
 .job-card .main-content {
   font-size: 16px;
-  color: #979797;
+  color: #3f3f3f;
   margin-top: 10px;
   overflow: hidden;
   max-height: 100px;
@@ -114,26 +112,24 @@
 .view-button {
   border: none;
   padding: 5px;
-  background: rgb(66, 109, 23);
+  background: #4CA6A8;
   border-radius: 5px;
   color: white;
   font-size: 1.1em;
   min-width: 150px;
   float: right;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
   cursor: pointer;
 }
 @media only screen and (min-width: 700px) {
   .job-card {
-    flex-flow: row;
     min-height: 230px;
   }
   .title-side {
     border-top-right-radius: 0px;
     border-bottom-left-radius: 5px;
-    width: 400px;
     flex-grow: 1;
   }
 
@@ -141,7 +137,4 @@
     width: 100%;
   }
 
-  .view-button {
-    width: 150px;
-  }
 }

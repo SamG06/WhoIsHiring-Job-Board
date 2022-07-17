@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useJobs } from "../context/jobs-context";
-import JobCard from "./JobCard/JobCard";
+import React, { useState, useEffect, useCallback } from "react";
+import { JobsState, useJobs } from "../../context/jobs-context";
+import JobCard from "../JobCard/JobCard";
 import LoadingMessage from "./LoadingMessage";
-import { useSaved } from "../context/saved-context";
+import { useSaved } from "../../context/saved-context";
 
 function JobsList() {
   const { jobs, keywords } = useJobs();
@@ -14,9 +14,9 @@ function JobsList() {
   }, [keywords, showSaved]);
 
   // LOAD JOBS ON SCROLL
-  const scrollLoadJobs = () => {
+  const scrollLoadJobs = useCallback((): void => {
     const distanceScrolled = window.innerHeight + window.scrollY;
-    const fullHeight = document.body.offsetHeight - 800; // 800 make room for early loading
+    const fullHeight = document.body.offsetHeight - 800;
     const scrolledToBottom = distanceScrolled >= fullHeight;
 
     if (scrolledToBottom) {
@@ -29,21 +29,22 @@ function JobsList() {
 
       setAmount(jobs.length);
     }
-  };
+  }, [amount, jobs.length]);
 
-  // END SHOW JOBS VARIABLE
-  const [jobsToShow, setJobsToShow] = useState([]);
+  const [jobsToShow, setJobsToShow] = useState<JobsState[]>([]);
 
-  const keywordMatching = (job) => {
+  const keywordMatching = useCallback((job: JobsState): boolean => {
     const { title, content } = job;
     const lowerTitle = title.toLocaleLowerCase();
     const lowerContent = content.toLocaleLowerCase();
 
-    const matches = [];
+    const matches: string[] = [];
 
-    // get all required words then make them lowercase
-    let requiredWords = keywords.filter(({ required }) => required === true);
-    requiredWords = requiredWords.map(({ word }) => word.toLocaleLowerCase());
+    let requiredWords = keywords.reduce((filtered, {required, word}) =>{
+      if(required) filtered.push(word.toLocaleLowerCase()); 
+      return filtered
+    }, [] as string[])
+
 
     keywords.forEach(({ word }) => {
       const lowerWord = word.toLocaleLowerCase();
@@ -67,37 +68,37 @@ function JobsList() {
 
     if (matches.length > 0) {
       setJobsToShow((toShow) => [...toShow, { ...job, matches }]);
-
       return true;
     }
 
     return false;
-  };
+  }, [keywords])
+
   useEffect(() => {
     if (!jobs.length) return;
-    console.log(jobs);
 
     if (!keywords.length) {
       setJobsToShow(jobs);
     } else {
       setJobsToShow([]);
+      
       jobs.forEach((job, index) => {
         keywordMatching(job);
       });
     }
     window.addEventListener("scroll", scrollLoadJobs);
-  }, [jobs, keywords]);
-
-  // SEARCH KEYWORD MATCHING
+  }, [jobs, keywordMatching, keywords, scrollLoadJobs]);
 
   return (
     <div className="jobs-list">
       {!jobs.length && <LoadingMessage />}
-      {showSaved && saved.map((job) => <JobCard key={job.id} job={job} />)}
-      {!showSaved &&
-        jobsToShow
-          .slice(0, amount)
-          .map((job) => <JobCard key={job.id} job={job} />)}
+
+        {showSaved && saved.map((job) => <JobCard key={job.id} job={job} />)}
+        
+        {!showSaved &&
+          jobsToShow
+            .slice(0, amount)
+            .map((job) => <JobCard key={job.id} job={job} />)}
     </div>
   );
 }

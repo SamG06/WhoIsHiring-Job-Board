@@ -1,19 +1,31 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
-import PropTypes from "prop-types";
 
-interface JobsState {
+export interface JobsState {
   month: string,
   title: string,
   content: string,
   date_time: string,
   id: string,
-  indentWidth: number
+  indentWidth: number,
+  matches: string[],
 }
 
-const JobsContext = createContext(null);
+export interface KeywordsInterface {
+  word: string,
+  required: boolean,
+}
+export interface JobsContextInterface {
+  jobs: Array<JobsState>,
+  keywords: Array<KeywordsInterface>,
+  jobError: boolean,
+  setKeywords:  React.Dispatch<React.SetStateAction<any>>
+}
+
+const JobsContext = createContext<JobsContextInterface>(null);
 
 function JobsProvider({ children }) {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<Array<JobsState>>([]);
+  const [jobError, setJobError] = useState<boolean>(false);
   const [keywords, setKeywords] = useState([]);
 
   useEffect(() => {
@@ -28,6 +40,7 @@ function JobsProvider({ children }) {
         setJobs(data);
       })
       .catch((err) => {
+        setJobError(true)
         console.log(err);
       })
       .finally(() => {
@@ -35,12 +48,10 @@ function JobsProvider({ children }) {
       });
   }, []);
 
-  const value = { jobs, keywords, setKeywords };
+  const value = { jobs, keywords, jobError, setKeywords };
 
   return <JobsContext.Provider value={value}>{children} </JobsContext.Provider>;
 }
-
-JobsProvider.propTypes = { children: PropTypes.node.isRequired };
 
 function useJobs() {
   const context = useContext(JobsContext);

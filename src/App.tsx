@@ -4,7 +4,7 @@ import "./css/global.css";
 
 import { JobsProvider } from "./context/jobs-context";
 import { SavedProvider } from "./context/saved-context";
-import JobsList from "./components/JobsList";
+import JobsList from "./components/JobsList/JobsList";
 import JobHeader from "./components/JobHeader";
 import FullView from "./components/FullView/FullView";
 
