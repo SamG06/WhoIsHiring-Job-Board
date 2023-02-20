@@ -12,11 +12,11 @@ function JobsProvider({ children }) {
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-        data.sort((a, b) => {
+      .then(({jobs}) => {
+        jobs.sort((a, b) => {
           return new Date(b.date_time) - new Date(a.date_time);
         });
-        setJobs(data);
+        setJobs(jobs);
       })
       .catch((err) => {
         console.log(err);
