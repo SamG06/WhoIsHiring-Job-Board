@@ -17,7 +17,7 @@ function JobCard({ job }) {
     }
     return "";
   };
-  const utcTime = `${job.date_time}Z`;
+  const utcTime = `${job.dateTime}Z`;
   return (
     <article className="job-card">
       <div className="title-side">
