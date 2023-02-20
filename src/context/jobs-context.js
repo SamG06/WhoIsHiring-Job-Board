@@ -14,7 +14,7 @@ function JobsProvider({ children }) {
       })
       .then(({jobs}) => {
         jobs.sort((a, b) => {
-          return new Date(b.date_time) - new Date(a.date_time);
+          return new Date(b.dateTime) - new Date(a.dateTime);
         });
         setJobs(jobs);
       })
